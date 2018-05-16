@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    command: ./bin/server
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/myapp
+    environment:
+      - RAILS_ENV: development
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD: password
+    
+volumes:
+  mysql-data:
+    driver: local
+
