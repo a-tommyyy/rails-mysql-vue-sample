@@ -22,5 +22,5 @@ ADD Gemfile.lock $myapp/
 RUN gem install bundler
 
 ENV BUNDLE_GEMFILE=$myapp/Gemfile \
-    BUNDLE_PATH=$myapp/vendor/bundle
+    BUNDLE_PATH=/bundle
 RUN bundle install
