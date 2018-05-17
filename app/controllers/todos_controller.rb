@@ -16,7 +16,6 @@ class TodosController < ApplicationController
 
   def update
     @todo = Todo.find(params[:id])
-    byebug
 
     if @todo.update(todo_params)
       render :show, status: 200
