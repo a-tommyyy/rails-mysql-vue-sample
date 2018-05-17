@@ -6,8 +6,10 @@ services:
     command: ./bin/server
     ports:
       - 5000:5000
+      - 3035:3035
     volumes:
       - .:/myapp
+      - bundle_install:/bundle
     environment:
       RAILS_ENV: development
     depends_on:
@@ -24,5 +26,7 @@ services:
     
 volumes:
   mysql-data:
+    driver: local
+  bundle_install:
     driver: local
 

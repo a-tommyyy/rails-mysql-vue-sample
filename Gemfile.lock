@@ -62,6 +62,8 @@ GEM
       activesupport (>= 4.2.0)
     i18n (1.0.1)
       concurrent-ruby (~> 1.0)
+    jb (0.5.0)
+      multi_json
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
@@ -74,6 +76,10 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.7.0)
       mini_mime (>= 0.1.1)
+    material_icons (2.2.1)
+      railties (>= 3.2)
+    materialize-sass (0.100.2)
+      sass (~> 3.3)
     method_source (0.9.0)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
@@ -170,8 +176,11 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.2)
   foreman
+  jb
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
+  material_icons
+  materialize-sass
   mysql2 (>= 0.3.18, < 0.6.0)
   puma (~> 3.7)
   rails (~> 5.1.6)
