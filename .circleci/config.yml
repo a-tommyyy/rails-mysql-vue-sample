@@ -3,13 +3,13 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-       - image: circleci/ruby:2.5.1-node-browsers
-         environment:
-           RAILS_ENV: test
-           MYSQL_HOST: 127.0.0.1
-       - image: circleci/mysql:5.7
-         environment:
-           MYSQL_ROOT_PASSWORD: password
+      - image: circleci/ruby:2.5.1-node-browsers
+        environment:
+          RAILS_ENV: test
+          MYSQL_HOST: 127.0.0.1
+      - image: circleci/mysql:5.7
+        environment:
+          MYSQL_ROOT_PASSWORD: password
       
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -29,23 +29,23 @@ jobs:
           - v1-dependencies-
 
       - run:
-          name: install dependencies
-          command: |
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
+        name: install dependencies
+        command: |
+          bundle install --jobs=4 --retry=3 --path vendor/bundle
 
       - save_cache:
-          paths:
-            - ./vendor/bundle
+        paths:
+          - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
         
       - run:
-          name: yarn install
-          command: yarn install --cache-folder =/.cache/yarn
+        name: yarn install
+        command: yarn install --cache-folder =/.cache/yarn
 
       - save_cache:
-          paths:
+        paths:
           - ~./cache/yarn
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+        key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
       # Database setup
       - run: bundle exec rake db:create
@@ -53,20 +53,20 @@ jobs:
 
       # run tests!
       - run:
-          name: run tests
-          command: |
-            mkdir /tmp/test-results
-            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+        name: run tests
+        command: |
+          mkdir /tmp/test-results
+          TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
             
-            bundle exec rspec --format progress \
-                            --format RspecJunitFormatter \
-                            --out /tmp/test-results/rspec.xml \
-                            --format progress \
-                            $TEST_FILES
+          bundle exec rspec --format progress \
+                          --format RspecJunitFormatter \
+                          --out /tmp/test-results/rspec.xml \
+                          --format progress \
+                          $TEST_FILES
 
       # collect reports
       - store_test_results:
-          path: /tmp/test-results
+        path: /tmp/test-results
       - store_artifacts:
-          path: /tmp/test-results
-          destination: test-results
+        path: /tmp/test-results
+        destination: test-results
